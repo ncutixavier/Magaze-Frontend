@@ -1,6 +1,5 @@
 import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAIL } from '../types';
 import axios from 'axios';
-import { useLocation } from 'react-router-dom';
 
 export const loginAction = (data, history) => async dispatch => {
     dispatch(loginRequest())
@@ -8,8 +7,6 @@ export const loginAction = (data, history) => async dispatch => {
         const res = await axios.post('https://magaze-backend.herokuapp.com/api/v1/users/login', data)
         // console.log("RES::", res)
         if (res.data) {
-            let loc = useLocation()
-            console.log(loc)
             localStorage.setItem('token', res.data.token)
             history.push('/dashboard')
         }
@@ -21,6 +18,7 @@ export const loginAction = (data, history) => async dispatch => {
             dispatch(loginError(errorMessage))
         }
         else {
+            console.log(error)
             dispatch(loginError("Please check your connection and try again!"))
         }
     }
