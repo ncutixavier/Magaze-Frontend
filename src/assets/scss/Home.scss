@@ -2,74 +2,145 @@ $text-color: #fff;
 $txt: #084298;
 $backg: #cfe2ff;
 
-.home-page {
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    background-color: #e9f2ff;
+*{
+    font-family: 'Alata'!important;
+}
 
-    .row {
-        align-items: center;
-        margin: 2rem;
+.home-page {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  background-color: #e9f2ff;
+
+  .row {
+    align-items: center;
+    margin: 2rem;
+  }
+
+  .home-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    p {
+      line-height: 2;
+      text-align: center;
+      font-size: 1.5rem;
+      margin: 1.5rem;
     }
 
-    .home-content {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+    h1 {
+      letter-spacing: 2px;
+      font-weight: 700;
+      text-align: center;
+      font-size: 3.5rem;
+    }
 
-        p {
-            line-height: 2;
-            text-align: center;
-            font-size: 1.5rem;
-            margin: 1.5rem;
-        }
+    .home-btn {
+      font-size: 1.5rem;
+      text-decoration: none;
+      margin: 2rem 0;
+      padding: 0.5rem 7rem;
+      border-radius: 2rem;
+      background-color: #084298;
+      color: #cfe2ff;
+      border: 1px solid #084298;
+      box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 
-        h1 {
-            letter-spacing: 2px;
-            font-weight: 700;
-            text-align: center;
-            font-size: 3.5rem;
-        }
-
-        .home-btn {
-            font-size: 1.5rem;
-            text-decoration: none;
-            margin: 2rem 0;
-            padding: 0.5rem 7rem;
-            border-radius: 2rem;
-            background-color: #084298;
-            color: #cfe2ff;
-            border: 1px solid #084298;
-            box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-        
-            &:hover {
-        transition: all .5s;
+      &:hover {
+        transition: all 0.5s;
         color: #084298;
         background-color: #cfe2ff;
         border: 1px solid #084298;
+      }
     }
-        }
+  }
+
+  .home-footer {
+    font-size: 1.5rem;
+    color: #084298;
+  }
+
+  .home-icons {
+    margin-top: 2rem;
+    a {
+      margin: 0 1rem;
     }
 
-    .home-footer{
-        font-size: 1.5rem;
-        color: #084298;
+    span > a > i {
+      font-size: 2rem;
+      color: #084298;
+      &:hover {
+        color: #094eb6;
+      }
     }
+  }
+}
 
-    .home-icons{
-        margin-top: 2rem;
-        a{
-            margin: 0 1rem;
-        }
+//Login
+.login-page {
+  .login-header {
+    display: flex;
+    align-items: center;
+    // justify-content: center;
+    margin-left: 5rem;
 
-        span>a>i{
-            font-size: 2rem;
-            color: #084298;
-            &:hover{
-                color: #094eb6;
-            }
-        }
+    .login-header-logo {
+      width: 40px;
+      height: 40px;
+      margin-right: 1rem;
+
+      img {
+        width: 100%;
+        border-radius: 0.3rem;
+      }
     }
+  }
+  .login-title {
+    text-transform: uppercase;
+    // text-align: center;
+    margin-left: 5rem;
+  }
+  .login-form {
+    margin: 2rem 5rem;
+
+    .MuiFormHelperText-root.Mui-error {
+      font-size: 1rem;
+    }
+  }
+
+  .forgot-link{
+    color: #084298;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+  }
+
+  .login-input{
+    height: 65px;
+  }
+
+  .login-message{
+    height: 35px;
+    margin: 2rem 5rem;
+
+    .alert{
+      font-size: 1.5rem;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .login-form {
+    margin: 2rem 0 !important;
+  }
+  .login-header,
+  .login-title {
+    margin-left: 0!important;
+  }
+
+  .login-message{
+    margin: 2rem 0!important;
+  }
 }

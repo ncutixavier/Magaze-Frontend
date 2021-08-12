@@ -1,6 +1,7 @@
 import React from 'react';
 import { Container, Row, Col, Alert, Image } from 'react-bootstrap';
 import home from '../assets/images/home.png';
+import { Link } from 'react-router-dom'
 
 const Home = () => {
   return (
@@ -19,9 +20,8 @@ const Home = () => {
                   Magaze, you will no longer need a book to record all
                   transactions made daily.
                 </p>
-                <a href='/login' className='home-btn'>
-                  Sign In
-                </a>
+                <Link to="/login" className='home-btn'>Sign In</Link>
+
                 <div className='home-icons'>
                   <span>
                     <a
@@ -63,10 +63,6 @@ const Home = () => {
               </div>
             </Col>
           </Row>
-          {/* <div className="footer">
-                        <span>Contact us on 0783573335</span>
-                        <span></span>
-                    </div> */}
           <div className='home-footer text-center'>
             &copy; {new Date().getFullYear()} Magaze
           </div>
