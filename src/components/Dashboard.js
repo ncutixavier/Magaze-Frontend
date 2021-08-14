@@ -92,7 +92,7 @@ const Dashboard = ({ children }) => {
     const classes = useStyles()
     const history = useHistory()
     const location = useLocation()
-    const username = localStorage.getItem('user') || 'Ncuti'
+    const username = localStorage.getItem('userName') || 'Ncuti'
 
     const [anchorEl, setAnchorEl] = React.useState(null);
 

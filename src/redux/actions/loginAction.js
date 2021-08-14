@@ -5,10 +5,10 @@ export const loginAction = (data, history) => async dispatch => {
     dispatch(loginRequest())
     try {
         const res = await axios.post('https://magaze-backend.herokuapp.com/api/v1/users/login', data)
-        // console.log("RES::", res)
+        console.log("RES::", res)
         if (res.data) {
             localStorage.setItem('token', res.data.token)
-            localStorage.setItem('user', res.data)
+            localStorage.setItem('userName', res.data.user.name)
             history.push('/home')
         }
         dispatch(loginSuccess(res.data));
