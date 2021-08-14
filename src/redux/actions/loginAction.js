@@ -8,7 +8,8 @@ export const loginAction = (data, history) => async dispatch => {
         // console.log("RES::", res)
         if (res.data) {
             localStorage.setItem('token', res.data.token)
-            history.push('/dashboard')
+            localStorage.setItem('user', res.data)
+            history.push('/home')
         }
         dispatch(loginSuccess(res.data));
     } catch (error) {
