@@ -4,10 +4,9 @@ import ListItemIcon from '@material-ui/core/ListItemIcon'
 import FolderIcon from '@material-ui/icons/Folder';
 import logo from '../assets/images/logo.png'
 import { useHistory, useLocation } from 'react-router'
-import { AppBar, Toolbar, IconButton, Button, Avatar} from '@material-ui/core'
+import { AppBar, Toolbar, IconButton, Button, Avatar } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
-// import ExitToAppIcon from '@material-ui/icons/ExitToApp'
-// import { blue } from '@material-ui/core/colors';
+import clsx from 'clsx';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
@@ -17,10 +16,23 @@ const useStyles = makeStyles((theme) => {
     return {
         page: {
             width: '100%',
-            backgroundColor: '#f9f9f9'
+            backgroundColor: '#f9f9f9',
+            transition: theme.transitions.create('margin', {
+                easing: theme.transitions.easing.sharp,
+                duration: theme.transitions.duration.leavingScreen,
+            }),
+            marginLeft: -drawerWidth,
+        },
+        pageShift: {
+            transition: theme.transitions.create('margin', {
+                easing: theme.transitions.easing.sharp,
+                duration: theme.transitions.duration.leavingScreen,
+            }),
+            marginLeft: 0,
         },
         drawer: {
             width: drawerWidth,
+            flexShrink: 0,
         },
         drawerPaper: {
             width: drawerWidth,
@@ -55,9 +67,21 @@ const useStyles = makeStyles((theme) => {
             paddingTop: '5px',
             paddingBottom: '5px',
         },
-        appbar: {
+        appBar: {
+            boxShadow: 'rgba(0, 0, 0, 0.04) 0px 3px 5px',
+            transition: theme.transitions.create(['margin', 'width'], {
+                easing: theme.transitions.easing.sharp,
+                duration: theme.transitions.duration.leavingScreen,
+            }),
+        },
+        appBarShift: {
             width: `calc(100% - ${drawerWidth}px)`,
-            boxShadow: 'rgba(0, 0, 0, 0.04) 0px 3px 5px'
+            marginLeft: drawerWidth,
+            boxShadow: 'rgba(0, 0, 0, 0.04) 0px 3px 5px',
+            transition: theme.transitions.create(['margin', 'width'], {
+                easing: theme.transitions.easing.easeOut,
+                duration: theme.transitions.duration.enteringScreen,
+            }),
         },
         toolbar: theme.mixins.toolbar,
         active: {
@@ -83,7 +107,8 @@ const useStyles = makeStyles((theme) => {
             boxShadow: 'rgba(0, 0, 0, 0.04) 0px 3px 5px'
         },
         menuItem: {
-            fontSize: '1.7rem'
+            fontSize: '1.7rem',
+            color: theme.palette.secondary.main
         }
     }
 })
@@ -95,6 +120,7 @@ const Dashboard = ({ children }) => {
     const username = localStorage.getItem('userName') || 'Ncuti'
 
     const [anchorEl, setAnchorEl] = React.useState(null);
+    const [open, setOpen] = React.useState(true);
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -104,6 +130,13 @@ const Dashboard = ({ children }) => {
         setAnchorEl(null);
     }
 
+    const handleDrawerOpen = () => {
+        setOpen(true);
+    };
+
+    const handleDrawerClose = () => {
+        setOpen(false);
+    };
     const menuItems = [
         {
             text: 'Home',
@@ -127,11 +160,14 @@ const Dashboard = ({ children }) => {
         <div className={classes.root}>
             <AppBar
                 color="inherit"
-                className={classes.appbar}
+                position="fixed"
+                className={clsx(classes.appBar, {
+                    [classes.appBarShift]: open,
+                })}
             >
                 <Toolbar>
-                    <div style={{flexGrow: 1}}>
-                        <IconButton edge="start" aria-label="menu">
+                    <div style={{ flexGrow: 1 }}>
+                        <IconButton edge="start" onClick={open ? handleDrawerClose : handleDrawerOpen}>
                             <MenuIcon style={{ fontSize: '20px' }} />
                         </IconButton>
                     </div>
@@ -152,8 +188,9 @@ const Dashboard = ({ children }) => {
             </AppBar>
             <Drawer
                 className={classes.drawer}
-                variant="permanent"
+                variant="persistent"
                 anchor="left"
+                open={open}
                 classes={{ paper: classes.drawerPaper }}
             >
                 <Card className={classes.logo}>
@@ -167,7 +204,7 @@ const Dashboard = ({ children }) => {
                     </Typography>
                 </Card>
 
-                <List style={{paddingRight: '1rem', flexGrow: .1}}>
+                <List style={{ paddingRight: '1rem', flexGrow: .1 }}>
                     {menuItems.map(item => (
                         <ListItem button
                             onClick={() => history.push(item.path)}
@@ -179,7 +216,9 @@ const Dashboard = ({ children }) => {
                     ))}
                 </List>
             </Drawer>
-            <div className={classes.page}>
+            <div className={clsx(classes.page, {
+                [classes.pageShift]: open,
+            })}>
                 <div className={classes.toolbar}></div>
                 {children}
             </div>

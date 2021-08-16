@@ -11,15 +11,17 @@ import Dashboard from '../components/Dashboard'
 import ForgotPassword from '../pages/ForgotPassword'
 import ProtectRoute from '../components/ProtectRoute'
 import { ThemeProvider } from '@material-ui/core'
-import { createTheme } from '@material-ui/core/styles'
+import { createMuiTheme } from '@material-ui/core/styles'
 import '../assets/scss/Home.scss'
 
-const theme = createTheme({
+const theme = createMuiTheme({
     palette: {
         primary: {
             main: '#084298'
         },
-        light: '#cfe2ff'
+        error: {
+            main: '#f44336'
+        }
     }
 })
 

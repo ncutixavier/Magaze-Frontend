@@ -36,7 +36,7 @@ const options = {
 
 const Charts = () => (
   <>
-    <Bar data={data} options={options} width={100} height={70} />
+    <Bar data={data} options={options} width={100} height={65} />
   </>
 );
 
