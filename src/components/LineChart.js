@@ -41,7 +41,7 @@ const options = {
 
 const LineChart = () => (
   <>
-    <Line data={data} options={options} width={100} height={70} />
+    <Line data={data} options={options} width={100} height={65} />
   </>
 );
 

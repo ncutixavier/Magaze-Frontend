@@ -35,7 +35,7 @@ export class Login extends Component {
     return (
       <div className='home-page login-page'>
         <Container>
-          <Alert variant='primary'>
+          <Alert variant='primary' className="login-alert-page">
             <Row>
               <Col md={6} className='p-5'>
                 <Image width='100%' src={home} rounded />

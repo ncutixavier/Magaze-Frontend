@@ -10,11 +10,18 @@ $backg: #cfe2ff;
   height: 100vh;
   display: flex;
   align-items: center;
-  background-color: #e9f2ff;
+  background-color: #f9f9f9;
 
   .row {
     align-items: center;
     margin: 2rem;
+  }
+
+  .login-alert-page{
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    border: none;
+    background-color: #fff;
+    border-radius: .6rem;
   }
 
   .home-content {
