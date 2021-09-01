@@ -92,7 +92,7 @@ export class GetUsers extends Component {
 
                 {this.props.getUsers.loading ? <Loading /> :
                     this.props.getUsers.error !== null ? (
-                        <Error error={this.props.getUsers.error} />
+                        <Error error={this.props.getUsers.error.data.message} />
                     ) : this.props.getUsers.data !== null ? (
 
                         <MaterialTable
