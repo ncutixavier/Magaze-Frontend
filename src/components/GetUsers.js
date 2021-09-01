@@ -19,6 +19,10 @@ import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
 import { Paper, Dialog, DialogTitle, DialogContent, Typography, DialogActions, Button } from '@material-ui/core';
 import { grey } from '@material-ui/core/colors';
+import { getUsersAction } from '../redux/actions/getUsersAction';
+import Loading from './Loading';
+import Error from './Error'
+import GeneralError from './GeneralError'
 
 export class GetUsers extends Component {
 
@@ -30,6 +34,9 @@ export class GetUsers extends Component {
         this.setState({ open: !this.state.open })
     };
 
+    componentDidMount() {
+        this.props.getUsersAction();
+    }
 
     render() {
 
@@ -54,6 +61,7 @@ export class GetUsers extends Component {
         };
         return (
             <div className="pt-4">
+                {console.log(this.props.getUsers)}
                 <Dialog open={this.state.open}>
                     <DialogTitle id="customized-dialog-title"
                         onClose={this.handleClose}>
@@ -80,73 +88,75 @@ export class GetUsers extends Component {
                         </Button>
                     </DialogActions>
                 </Dialog>
-                <MaterialTable
-                    components={{
-                        Container: props => <Paper {...props} elevation={0} />
-                    }}
-                    icons={tableIcons}
-                    title=""
-                    columns={[
-                        { title: 'Name', field: 'name' },
-                        { title: 'Email', field: 'email' },
-                        { title: 'Gender', field: 'gender' },
-                        { title: 'Role', field: 'role' },
-                    ]}
-                    data={[
-                        { name: 'Mehmet', email: 'Baran', gender: 'Male', role: 'Manager' },
-                        { name: 'Mehmet', email: 'Baran', gender: 'Male', role: 'Manager' },
-                        { name: 'Zerya Betül', email: 'Baran', gender: 'Male', role: 'Owner' },
-                        { name: 'Mehmet', email: 'Baran', gender: 'Male', role: 'Manager' },
-                        { name: 'Zerya Betül', email: 'Baran', gender: 'Male', role: 'Owner' },
-                        { name: 'Mehmet', email: 'Baran', gender: 'Male', role: 'Manager' },
-                        { name: 'Zerya Betül', email: 'Baran', gender: 'Male', role: 'Owner' },
-                        { name: 'Mehmet', email: 'Baran', gender: 'Male', role: 'Manager' },
-                        { name: 'Zerya Betül', email: 'Baran', gender: 'Male', role: 'Owner' },
-                        { name: 'Mehmet', email: 'Baran', gender: 'Male', role: 'Manager' },
-                        { name: 'Zerya Betül', email: 'Baran', gender: 'Male', role: 'Owner' },
-                    ]}
-                    actions={[
-                        {
-                            icon: tableIcons.Edit,
-                            tooltip: 'Save User',
-                            onClick: (event, rowData) => this.setState({ open: !this.state.open })
-                        },
-                        rowData => ({
-                            icon: tableIcons.Delete,
-                            tooltip: 'Delete User',
-                            onClick: (event, rowData) => window.confirm("You want to delete " + rowData.name),
-                            disabled: rowData.birthYear < 2000
-                        })
-                    ]}
-                    options={{
-                        actionsColumnIndex: -1,
-                        exportButton: true,
-                        rowStyle: {
-                            fontSize: 15,
-                            color: grey[600]
-                        },
-                        headerStyle: {
-                            fontSize: 17,
-                            fontWeight: 500,
-                            textTransform: 'uppercase'
-                        },
-                        searchFieldStyle: {
-                            fontSize: 17,
-                        }
-                    }}
-                />
+
+
+                {this.props.getUsers.loading ? <Loading /> :
+                    this.props.getUsers.error !== null ? (
+                        <Error error={this.props.getUsers.error} />
+                    ) : this.props.getUsers.data !== null ? (
+
+                        <MaterialTable
+                            components={{
+                                Container: props => <Paper {...props} elevation={0} />
+                            }}
+                            icons={tableIcons}
+                            title=""
+                            columns={[
+                                { title: 'Name', field: 'name' },
+                                { title: 'Email', field: 'email' },
+                                { title: 'Gender', field: 'gender' },
+                                { title: 'Role', field: 'role' },
+                                ]}
+                                data={
+                                    this.props.getUsers.data.users.map(user => {
+                                        return {
+                                            name: user.name,
+                                            email: user.email,
+                                            gender: user.gender,
+                                            role: user.role,
+                                        }
+                                    })
+                                }
+                            actions={[
+                                {
+                                    icon: tableIcons.Edit,
+                                    tooltip: 'Save User',
+                                    onClick: (event, rowData) => this.setState({ open: !this.state.open })
+                                },
+                                rowData => ({
+                                    icon: tableIcons.Delete,
+                                    tooltip: 'Delete User',
+                                    onClick: (event, rowData) => window.confirm("You want to delete " + rowData.name),
+                                    disabled: rowData.birthYear < 2000
+                                })
+                            ]}
+                            options={{
+                                actionsColumnIndex: -1,
+                                exportButton: true,
+                                rowStyle: {
+                                    fontSize: 15,
+                                    color: grey[600]
+                                },
+                                headerStyle: {
+                                    fontSize: 17,
+                                    fontWeight: 500,
+                                    textTransform: 'uppercase'
+                                },
+                                searchFieldStyle: {
+                                    fontSize: 17,
+                                }
+                            }}
+                        />
+
+                    ) : <GeneralError />
+                }
             </div>
         )
     }
 }
 
 const mapStateToProps = (state) => ({
-
+    getUsers: state.getUsers
 })
 
-const mapDispatchToProps = {
-
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(GetUsers)
-
+export default connect(mapStateToProps, { getUsersAction })(GetUsers);

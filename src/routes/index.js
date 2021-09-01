@@ -33,7 +33,7 @@ const index = () => {
                     <Route exact path="/" component={Home} />
                     <Route path="/login" component={Login} />
                     <Route path="/forgotpassword" component={ForgotPassword} />
-
+                    
                     <Dashboard>
                         <Switch>
                             <ProtectRoute path="/Home" component={HomePage} />
