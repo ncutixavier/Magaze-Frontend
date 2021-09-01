@@ -89,9 +89,10 @@ export class GetUsers extends Component {
                     </DialogActions>
                 </Dialog>
 
-
+                {console.log("BACK::", this.props.getUsers)}
                 {this.props.getUsers.loading ? <Loading /> :
                     this.props.getUsers.error !== null ? (
+                        // console.log("Error", this.props.getUsers)
                         <Error error={this.props.getUsers.error.data.message} />
                     ) : this.props.getUsers.data !== null ? (
 
